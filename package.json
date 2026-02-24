@@ -9,7 +9,8 @@
     "start": "next start -p 4013",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "desktop:shortcut": "bash scripts/create-desktop-shortcut.sh"
+    "desktop:shortcut": "bash scripts/create-desktop-shortcut.sh",
+    "vercel:check": "bash scripts/check-vercel-autodeploy.sh"
   },
   "dependencies": {
     "clsx": "^2.1.1",

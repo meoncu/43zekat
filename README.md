@@ -38,6 +38,27 @@ This creates a desktop launcher that starts the app on port `4013` and kills any
 4. Build command: `npm run build`
 5. Start command: `npm run start`
 
+### Vercel neden otomatik güncellemeyi görmez?
+En sık nedenler:
+1. Repoda `origin` remote yoktur veya yanlış repoya bağlıdır.
+2. Commit'ler sadece localdedir, GitHub'a `push` edilmemiştir.
+3. Vercel, Git entegrasyonunda farklı branch'i (ör: `main`) izlerken siz başka branch'e commit atmışsınızdır.
+4. Vercel projesi GitHub reposundan "Disconnected" durumuna düşmüştür.
+5. Auto-deploy, Vercel proje ayarlarında kapalıdır.
+
+Hızlı kontrol:
+```bash
+git remote -v
+git branch -vv
+git log --oneline -n 5
+```
+
+Bu projede otomatik deploy için tipik akış:
+```bash
+git remote add origin https://github.com/meoncu/zekat.git   # bir kere
+git push -u origin main                                     # veya Vercel'in izlediği branch
+```
+
 ### Vercel'de hata alırsanız (kritik kontrol listesi)
 1. **Firebase Auth Authorized Domains** bölümüne şu domainleri ekleyin:
    - `43zekat.vercel.app`
