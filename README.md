@@ -74,6 +74,14 @@ npm run vercel:push
 
 > Not: Login sayfası `auth/unauthorized-domain` hatasını kullanıcıya açık şekilde gösterir.
 
+### `npm ERESOLVE` (React 19 / Next peer dependency) hatası
+Eğer Vercel logunda aşağıdaki gibi bir hata görürseniz:
+- `next@15.0.3` peer `react` için `19.0.0` stable'i kabul etmiyor
+
+Çözüm:
+- Next.js ve `eslint-config-next` sürümlerini React 19 stable ile uyumlu sürüme yükseltin.
+- Bu repoda `next` ve `eslint-config-next` `15.2.4` olarak ayarlanmıştır.
+
 ## Production checks
 ```bash
 npm run typecheck
