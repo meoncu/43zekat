@@ -24,34 +24,38 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (u) => {
-      setUser(u);
-      if (!u) {
-        setRole(null);
+      try {
+        setUser(u);
+        if (!u) {
+          setRole(null);
+          return;
+        }
+        const profileRef = doc(db, 'users', u.uid, 'profile', 'main');
+        const snap = await getDoc(profileRef);
+        const assignedRole = u.email === ADMIN_EMAIL ? 'admin' : 'user';
+        if (!snap.exists()) {
+          await setDoc(profileRef, {
+            uid: u.uid,
+            email: u.email,
+            displayName: u.displayName,
+            photoURL: u.photoURL,
+            role: assignedRole,
+            createdAt: new Date().toISOString(),
+          });
+          await setDoc(doc(db, 'users', u.uid, 'assets', 'main'), {
+            tlAssets: [],
+            currencyAssets: [],
+            metalAssets: [],
+          });
+          setRole(assignedRole);
+        } else {
+          setRole((snap.data().role as 'admin' | 'user') ?? 'user');
+        }
+      } catch {
+        setRole('user');
+      } finally {
         setLoading(false);
-        return;
       }
-      const profileRef = doc(db, 'users', u.uid, 'profile', 'main');
-      const snap = await getDoc(profileRef);
-      const assignedRole = u.email === ADMIN_EMAIL ? 'admin' : 'user';
-      if (!snap.exists()) {
-        await setDoc(profileRef, {
-          uid: u.uid,
-          email: u.email,
-          displayName: u.displayName,
-          photoURL: u.photoURL,
-          role: assignedRole,
-          createdAt: new Date().toISOString(),
-        });
-        await setDoc(doc(db, 'users', u.uid, 'assets', 'main'), {
-          tlAssets: [],
-          currencyAssets: [],
-          metalAssets: [],
-        });
-        setRole(assignedRole);
-      } else {
-        setRole((snap.data().role as 'admin' | 'user') ?? 'user');
-      }
-      setLoading(false);
     });
 
     return () => unsub();

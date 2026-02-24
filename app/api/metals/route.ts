@@ -2,15 +2,18 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    const [spotRes, ratesRes] = await Promise.all([
+    const [spotRes, fxRes] = await Promise.all([
       fetch('https://api.metals.live/v1/spot', { next: { revalidate: 3600 } }),
-      fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:4013'}/api/rates`, { cache: 'no-store' }),
+      fetch('https://open.er-api.com/v6/latest/TRY', { next: { revalidate: 3600 } }),
     ]);
+
     const spot = await spotRes.json();
-    const rates = await ratesRes.json();
+    const fxData = await fxRes.json();
+
     const ounceGoldUsd = Number((spot.find((x: Record<string, number>) => x.gold)?.gold ?? 2650));
     const ounceSilverUsd = Number((spot.find((x: Record<string, number>) => x.silver)?.silver ?? 31));
-    const usdTry = rates.rates.USD;
+    const usdTry = 1 / Number(fxData?.rates?.USD ?? 0.028);
+
     return NextResponse.json({
       metals: {
         ounce_gold: ounceGoldUsd * usdTry,

@@ -38,6 +38,16 @@ This creates a desktop launcher that starts the app on port `4013` and kills any
 4. Build command: `npm run build`
 5. Start command: `npm run start`
 
+### Vercel'de hata alırsanız (kritik kontrol listesi)
+1. **Firebase Auth Authorized Domains** bölümüne şu domainleri ekleyin:
+   - `43zekat.vercel.app`
+   - Vercel preview domain(ler)i (`*.vercel.app`)
+2. Firebase Console > Authentication > Sign-in method içinde **Google provider enabled** olmalı.
+3. Vercel Environment Variables değerlerini **Production** için de tanımladığınızdan emin olun.
+4. Yeni env eklendiyse Vercel'de tekrar deploy edin.
+
+> Not: Login sayfası `auth/unauthorized-domain` hatasını kullanıcıya açık şekilde gösterir.
+
 ## Production checks
 ```bash
 npm run typecheck
