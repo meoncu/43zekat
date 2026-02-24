@@ -10,7 +10,8 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "desktop:shortcut": "bash scripts/create-desktop-shortcut.sh",
-    "vercel:check": "bash scripts/check-vercel-autodeploy.sh"
+    "vercel:check": "bash scripts/check-vercel-autodeploy.sh",
+    "vercel:push": "bash scripts/push-vercel-main.sh"
   },
   "dependencies": {
     "clsx": "^2.1.1",

@@ -59,6 +59,11 @@ git remote add origin https://github.com/meoncu/zekat.git   # bir kere
 git push -u origin main                                     # veya Vercel'in izlediği branch
 ```
 
+Tek komutta mevcut commit'i Vercel'in gördüğü `main` branch'ine göndermek için:
+```bash
+npm run vercel:push
+```
+
 ### Vercel'de hata alırsanız (kritik kontrol listesi)
 1. **Firebase Auth Authorized Domains** bölümüne şu domainleri ekleyin:
    - `43zekat.vercel.app`
