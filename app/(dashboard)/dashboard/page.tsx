@@ -40,9 +40,8 @@ export default function DashboardPage() {
     }).catch(() => null);
   }, []);
 
-  if (!user) return null;
-
   const saveAssets = async (next: UserAssets) => {
+    if (!user) return;
     setAssets(next);
     await updateDoc(doc(db, 'users', user.uid, 'assets', 'main'), next);
   };
@@ -59,6 +58,8 @@ export default function DashboardPage() {
     { label: 'Foreign Currency', value: eligibleFX },
     { label: 'Metals', value: eligibleMetals },
   ]), [eligibleFX, eligibleMetals, eligibleTL]);
+
+  if (!user) return null;
 
   return (
     <Protected>
