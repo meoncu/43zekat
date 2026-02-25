@@ -390,28 +390,28 @@ export default function Dashboard() {
                         </div>
                         <h1 className="text-xl font-bold font-outfit hidden sm:block">43Zekat</h1>
                     </div>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-1 sm:gap-4">
                         <ThemeToggle />
-                        <div className="flex items-center gap-2 px-3 py-1 bg-zinc-100 dark:bg-zinc-800 rounded-full">
+                        <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 bg-zinc-100 dark:bg-zinc-800 rounded-full max-w-[120px] sm:max-w-none">
                             {user?.photoURL ? (
-                                <img src={user.photoURL} className="w-6 h-6 rounded-full" alt="avatar" />
+                                <img src={user.photoURL} className="w-5 h-5 sm:w-6 sm:h-6 rounded-full" alt="avatar" />
                             ) : (
-                                <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-[10px] text-emerald-700 font-bold uppercase">
+                                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-emerald-100 flex items-center justify-center text-[9px] sm:text-[10px] text-emerald-700 font-bold uppercase shrink-0">
                                     {user?.displayName?.[0] || user?.email?.[0] || "?"}
                                 </div>
                             )}
-                            <span className="text-sm font-medium hidden md:inline">{user?.displayName}</span>
+                            <span className="text-xs sm:text-sm font-medium hidden md:inline truncate">{user?.displayName}</span>
                             {user?.email === "meoncu@gmail.com" && (
-                                <span className="ml-1 px-1.5 py-0.5 bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400 text-[10px] font-bold rounded border border-amber-200 dark:border-amber-800 uppercase">
+                                <span className="px-1 py-0.5 bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400 text-[8px] sm:text-[10px] font-bold rounded border border-amber-200 dark:border-amber-800 uppercase shrink-0">
                                     Admin
                                 </span>
                             )}
                         </div>
-                        <Button variant="ghost" size="icon" onClick={() => setIsSettingsOpen(true)}>
-                            <Settings className="h-5 w-5" />
+                        <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-10 sm:w-10" onClick={() => setIsSettingsOpen(true)}>
+                            <Settings className="h-4 w-4 sm:h-5 w-5" />
                         </Button>
-                        <Button variant="ghost" size="icon" onClick={() => signOut(auth)}>
-                            <LogOut className="h-5 w-5 text-red-500" />
+                        <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-10 sm:w-10" onClick={() => signOut(auth)}>
+                            <LogOut className="h-4 w-4 sm:h-5 w-5 text-red-500" />
                         </Button>
                     </div>
                 </div>
@@ -454,15 +454,17 @@ export default function Dashboard() {
                 </div>
 
                 <Tabs defaultValue="tl" className="w-full">
-                    <TabsList className="grid w-full grid-cols-6 mb-8 h-12 bg-white dark:bg-zinc-900 p-1 rounded-xl border border-zinc-200 dark:border-zinc-800">
-                        <TabsTrigger value="tl" className="rounded-lg data-[state=active]:bg-emerald-600 data-[state=active]:text-white">TL</TabsTrigger>
-                        <TabsTrigger value="currency" className="rounded-lg data-[state=active]:bg-emerald-600 data-[state=active]:text-white">Döviz</TabsTrigger>
-                        <TabsTrigger value="metals" className="rounded-lg data-[state=active]:bg-emerald-600 data-[state=active]:text-white">Altın/Gümüş</TabsTrigger>
-                        <TabsTrigger value="receivables" className="rounded-lg data-[state=active]:bg-emerald-600 data-[state=active]:text-white">Alacaklar</TabsTrigger>
-                        <TabsTrigger value="zakat" className="rounded-lg data-[state=active]:bg-emerald-600 data-[state=active]:text-white">Zekatlarım</TabsTrigger>
-                        <TabsTrigger value="summary" className="data-[state=active]:bg-emerald-600 data-[state=active]:text-white rounded-lg transition-all"><Calculator className="w-4 h-4 mr-2" /> Özet</TabsTrigger>
-                        <TabsTrigger value="history" className="data-[state=active]:bg-emerald-600 data-[state=active]:text-white rounded-lg transition-all"><Archive className="w-4 h-4 mr-2" /> Geçmiş</TabsTrigger>
-                    </TabsList>
+                    <div className="relative mb-8 -mx-4 px-4 overflow-hidden">
+                        <TabsList className="flex w-full h-12 bg-white dark:bg-zinc-900 p-1 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-x-auto overflow-y-hidden no-scrollbar justify-start sm:justify-center gap-1 scroll-smooth">
+                            <TabsTrigger value="tl" className="rounded-lg px-6 text-xs sm:text-sm data-[state=active]:bg-emerald-600 data-[state=active]:text-white shrink-0 h-full">TL</TabsTrigger>
+                            <TabsTrigger value="currency" className="rounded-lg px-6 text-xs sm:text-sm data-[state=active]:bg-emerald-600 data-[state=active]:text-white shrink-0 h-full">Döviz</TabsTrigger>
+                            <TabsTrigger value="metals" className="rounded-lg px-6 text-xs sm:text-sm data-[state=active]:bg-emerald-600 data-[state=active]:text-white shrink-0 h-full whitespace-nowrap">Altın / Gümüş</TabsTrigger>
+                            <TabsTrigger value="receivables" className="rounded-lg px-6 text-xs sm:text-sm data-[state=active]:bg-emerald-600 data-[state=active]:text-white shrink-0 h-full">Alacaklar</TabsTrigger>
+                            <TabsTrigger value="zakat" className="rounded-lg px-6 text-xs sm:text-sm data-[state=active]:bg-emerald-600 data-[state=active]:text-white shrink-0 h-full">Zekatlarım</TabsTrigger>
+                            <TabsTrigger value="summary" className="data-[state=active]:bg-emerald-600 data-[state=active]:text-white rounded-lg px-6 text-xs sm:text-sm shrink-0 h-full flex items-center gap-2"><Calculator className="w-4 h-4" /> Özet</TabsTrigger>
+                            <TabsTrigger value="history" className="data-[state=active]:bg-emerald-600 data-[state=active]:text-white rounded-lg px-6 text-xs sm:text-sm shrink-0 h-full flex items-center gap-2"><Archive className="w-4 h-4" /> Geçmiş</TabsTrigger>
+                        </TabsList>
+                    </div>
 
                     <TabsContent value="tl" className="space-y-6">
                         <Card className="border-zinc-200 dark:border-zinc-800 shadow-lg">
