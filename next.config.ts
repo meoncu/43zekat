@@ -8,6 +8,8 @@ const withPWA = require("next-pwa")({
 
 const nextConfig: NextConfig = {
   /* Diğer ayarlar buraya */
+  // @ts-ignore
+  turbopack: {},
 };
 
 export default withPWA(nextConfig);
