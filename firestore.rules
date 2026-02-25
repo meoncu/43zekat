@@ -1,0 +1,26 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // User path: All documents under /users/{userId} belong to that specific user
+    match /users/{userId} {
+      // User can read/write their own root profile document
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      
+      // All sub-collections (tlAssets, metalAssets, snapshots, etc.) follow the same owner rule
+      match /{allSubcollections=**} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+    
+    // Admin check for global oversight if needed
+    function isAdmin() {
+      return request.auth != null && request.auth.token.email == "meoncu@gmail.com";
+    }
+    
+    // Deny access to everything else by default, unless it's the admin
+    match /{allDocuments=**} {
+      allow read, write: if isAdmin();
+    }
+  }
+}

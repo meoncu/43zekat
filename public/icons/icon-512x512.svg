@@ -1,0 +1,6 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="120" fill="#059669"/>
+  <path d="M120 180H220V240H120V320H240V380H80V120H240V180H120Z" fill="white"/>
+  <path d="M380 120V220H440V120H500V380H320V320H440V280H320V120H380Z" fill="white" opacity="0.8"/>
+  <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, sans-serif" font-size="200" font-weight="bold" fill="white">43</text>
+</svg>
