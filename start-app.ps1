@@ -39,6 +39,7 @@ try {
     $Shortcut.TargetPath = "powershell.exe"
     $Shortcut.Arguments = "-NoExit -ExecutionPolicy Bypass -File `"$projectDir\start-app.ps1`""
     $Shortcut.WorkingDirectory = $projectDir
+    $Shortcut.IconLocation = "$projectDir\public\app.ico"
     $Shortcut.Save()
     Write-Host "Kisayol guncellendi." -ForegroundColor Green
 }
